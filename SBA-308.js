@@ -112,52 +112,8 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
                     scores: {}
                 };
             }
-
-            try {
-                // Validate points_possible
-                if (typeof pointsPossible !== 'number' || pointsPossible <= 0) {
-                    throw new Error(`Invalid points_possible value for assignment ${assignmentId}.`);
-                }
-
-                let finalScore = score;
-
-                // Deduct 10% for late submissions
-                if (submittedAt > dueDate) {
-                    finalScore -= 0.1 * pointsPossible;
-                }
-
-                // Calculate percentage score
-                const percentageScore = (finalScore / pointsPossible);
-                results[learnerId].scores[assignmentId] = percentageScore;
-
-                // Update total weighted score and points possible
-                results[learnerId].totalWeightedScore += finalScore;
-                results[learnerId].totalPointsPossible += pointsPossible;
-
-            } catch (error) {
-                console.error(`Error processing submission for learner ${learnerId}, assignment ${assignmentId}: ${error.message}`);
-            }
         }
+
     }
 
-    // Calculate the averages and return the final results
-    return Object.values(results).map(learner => {
-        if (learner.totalPointsPossible > 0) {
-            learner.avg = (learner.totalWeightedScore / learner.totalPointsPossible);
-        } else {
-            learner.avg = 0; // Default to 0 if no points possible
-        }
-        // Clean up unnecessary properties
-        delete learner.totalWeightedScore;
-        delete learner.totalPointsPossible;
-        return learner;
-    });
-}
-
-// Call the function and log the result
-try {
-    const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-    console.log(result);
-} catch (error) {
-    console.error(error.message);
 }
