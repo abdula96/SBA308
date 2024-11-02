@@ -154,3 +154,10 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
     });
 }
 
+// Call the function and log the result
+try {
+    const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+    console.log(result);
+} catch (error) {
+    console.error(error.message);
+}
