@@ -139,4 +139,18 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
             }
         }
     }
+
+    // Calculate the averages and return the final results
+    return Object.values(results).map(learner => {
+        if (learner.totalPointsPossible > 0) {
+            learner.avg = (learner.totalWeightedScore / learner.totalPointsPossible);
+        } else {
+            learner.avg = 0; // Default to 0 if no points possible
+        }
+        // Clean up unnecessary properties
+        delete learner.totalWeightedScore;
+        delete learner.totalPointsPossible;
+        return learner;
+    });
 }
+
