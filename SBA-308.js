@@ -85,4 +85,23 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
 
     const results = {};
 
+    // Process each assignment in the assignment group
+    for (let assignment of assignmentGroup.assignments) {
+        const dueDate = new Date(assignment.due_at);
+
+        // Skip assignments that are not yet due
+        if (dueDate > new Date()) {
+            continue;
+        }
+
+        // Process each learner submission
+        for (let submission of learnerSubmissions) {
+            const learnerId = submission.learner_id;
+            const assignmentId = submission.assignment_id;
+            const score = submission.submission.score;
+            const pointsPossible = assignment.points_possible;
+            const submittedAt = new Date(submission.submission.submitted_at);
+
+        }
+    }
 }
