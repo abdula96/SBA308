@@ -1,4 +1,5 @@
 # SBA308
+I looked into sample README.md's to come up with this one.
 
 # Learner Data Processing
 
@@ -11,10 +12,6 @@ This project provides a JavaScript function that processes learner data from a c
 - [Error Handling](#error-handling)
 - [Example](#example)
 - [License](#license)
-
-## Installation
-
-To run this code, you can simply include it in a JavaScript environment (like a web browser's console or Node.js). No additional libraries are required.
 
 ## Usage
 
