@@ -112,8 +112,31 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
                     scores: {}
                 };
             }
+
+            try {
+                // Validate points_possible
+                if (typeof pointsPossible !== 'number' || pointsPossible <= 0) {
+                    throw new Error(`Invalid points_possible value for assignment ${assignmentId}.`);
+                }
+
+                let finalScore = score;
+
+                // Deduct 10% for late submissions
+                if (submittedAt > dueDate) {
+                    finalScore -= 0.1 * pointsPossible;
+                }
+
+                // Calculate percentage score
+                const percentageScore = (finalScore / pointsPossible);
+                results[learnerId].scores[assignmentId] = percentageScore;
+
+                // Update total weighted score and points possible
+                results[learnerId].totalWeightedScore += finalScore;
+                results[learnerId].totalPointsPossible += pointsPossible;
+
+            } catch (error) {
+                console.error(`Error processing submission for learner ${learnerId}, assignment ${assignmentId}: ${error.message}`);
+            }
         }
-
     }
-
 }
